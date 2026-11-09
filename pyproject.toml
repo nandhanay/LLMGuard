@@ -1,0 +1,10 @@
+[project]
+name = "llmguard-privacy-gateway"
+version = "0.1.0"
+description = "Policy-Aware LLM Privacy Gateway with Context-Preserving Pseudonymization"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
