@@ -74,6 +74,16 @@ class TestStorageAndRetrieval:
         person_mappings = [m for m in mappings if m["placeholder"] == "PERSON_1"]
         assert len(person_mappings) == 1
 
+    def test_store_and_lookup_alias(self, vault: PIIVault):
+        """Should resolve aliases to the canonical placeholder."""
+        vault.store("s1", "PERSON", "PERSON_1", "Arunima Sen")
+        vault.store_alias("s1", "PERSON", "Arunima", "PERSON_1")
+        vault.store_alias("s1", "PERSON", "Sen", "PERSON_1")
+
+        assert vault.get_alias_placeholder("s1", "Arunima") == "PERSON_1"
+        assert vault.get_alias_placeholder("s1", "sen") == "PERSON_1"
+        assert vault.get_alias_placeholder("s1", "Unknown") is None
+
 
 # ── Session Isolation ────────────────────────────────────────
 

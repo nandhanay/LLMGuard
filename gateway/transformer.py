@@ -35,6 +35,7 @@ from typing import Optional
 
 from gateway.detector import PIIDetector, DetectionResult
 from gateway.vault import PIIVault
+from gateway.resolver import AliasResolver
 
 
 # ── Sanitization Result ──────────────────────────────────────
@@ -99,12 +100,14 @@ class TextTransformer:
         detector: PIIDetector,
         vault: PIIVault,
         allowed_entities: Optional[set[str]] = None,
+        resolver: Optional[AliasResolver] = None,
     ):
         self._detector = detector
         self._vault = vault
         self._allowed_entities = (
             allowed_entities if allowed_entities is not None else {"DATE_TIME"}
         )
+        self._resolver = resolver if resolver is not None else AliasResolver(vault)
 
     def sanitize(
         self,
@@ -140,6 +143,14 @@ class TextTransformer:
 
         # Step 1: Detect PII entities
         detections = self._detector.detect(text)
+
+        # Step 1.5: Cross-turn session alias resolution
+        if self._resolver:
+            detections = self._resolver.resolve_session_aliases(
+                text=text,
+                session_id=session_id,
+                existing_detections=detections,
+            )
 
         # Filter out entities that policy specifies to ALLOW (e.g. DATE_TIME)
         active_detections = [
@@ -274,6 +285,9 @@ class TextTransformer:
         for det in detections:
             # Check if this exact value already has a placeholder in this session
             existing = self._vault.get_placeholder(session_id, det.text)
+            if not existing:
+                # Also check if it matches a known session alias
+                existing = self._vault.get_alias_placeholder(session_id, det.text)
 
             if existing:
                 # Reuse the existing placeholder
@@ -300,6 +314,15 @@ class TextTransformer:
                     original_value=det.text,
                     turn_number=turn_number,
                 )
+
+                # Register aliases for future turns
+                if self._resolver:
+                    self._resolver.register_aliases(
+                        session_id=session_id,
+                        entity_type=det.entity_type,
+                        canonical_value=det.text,
+                        placeholder=placeholder,
+                    )
 
                 replacements.append(
                     ReplacementInfo(

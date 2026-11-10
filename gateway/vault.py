@@ -94,6 +94,19 @@ class PIIVault:
                     next_index  INTEGER NOT NULL DEFAULT 1,
                     PRIMARY KEY (session_id, entity_type)
                 );
+
+                CREATE TABLE IF NOT EXISTS aliases (
+                    id                    INTEGER PRIMARY KEY AUTOINCREMENT,
+                    session_id            TEXT    NOT NULL,
+                    entity_type           TEXT    NOT NULL,
+                    alias_value           TEXT    NOT NULL,
+                    alias_lower           TEXT    NOT NULL,
+                    canonical_placeholder TEXT    NOT NULL,
+                    created_at            TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
+
+                CREATE UNIQUE INDEX IF NOT EXISTS idx_session_alias_unique
+                    ON aliases(session_id, alias_lower);
                 """
             )
             self._conn.commit()
@@ -173,6 +186,59 @@ class PIIVault:
                 (session_id, placeholder),
             ).fetchone()
             return row["original_value"] if row else None
+
+    # ── Alias Operations ──────────────────────────────────────
+
+    def store_alias(
+        self,
+        session_id: str,
+        entity_type: str,
+        alias_value: str,
+        canonical_placeholder: str,
+    ) -> None:
+        """Store an alias mapped to a canonical placeholder."""
+        val_clean = alias_value.strip()
+        if not val_clean:
+            return
+        with self._lock:
+            self._conn.execute(
+                """
+                INSERT OR IGNORE INTO aliases
+                    (session_id, entity_type, alias_value, alias_lower, canonical_placeholder)
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                (session_id, entity_type, val_clean, val_clean.lower(), canonical_placeholder),
+            )
+            self._conn.commit()
+
+    def get_alias_placeholder(
+        self, session_id: str, alias_value: str
+    ) -> Optional[str]:
+        """Look up canonical placeholder for an alias."""
+        with self._lock:
+            row = self._conn.execute(
+                """
+                SELECT canonical_placeholder FROM aliases
+                WHERE session_id = ? AND alias_lower = ?
+                LIMIT 1
+                """,
+                (session_id, alias_value.lower().strip()),
+            ).fetchone()
+            return row["canonical_placeholder"] if row else None
+
+    def get_all_aliases(self, session_id: str) -> list[dict[str, str]]:
+        """Get all registered aliases for a session."""
+        with self._lock:
+            rows = self._conn.execute(
+                """
+                SELECT entity_type, alias_value, canonical_placeholder
+                FROM aliases
+                WHERE session_id = ?
+                ORDER BY LENGTH(alias_value) DESC
+                """,
+                (session_id,),
+            ).fetchall()
+            return [dict(row) for row in rows]
 
     # ── Placeholder Index Management ─────────────────────────
 
@@ -264,6 +330,10 @@ class PIIVault:
             )
             self._conn.execute(
                 "DELETE FROM session_counters WHERE session_id = ?",
+                (session_id,),
+            )
+            self._conn.execute(
+                "DELETE FROM aliases WHERE session_id = ?",
                 (session_id,),
             )
             self._conn.commit()

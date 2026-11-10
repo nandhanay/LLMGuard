@@ -160,6 +160,18 @@ class TestSessionConsistency:
             for p in person_placeholders:
                 assert p != "PERSON_1" or True  # Could be PERSON_1 if Rahul not detected
 
+    def test_alias_resolution_cross_turns(self, transformer: TextTransformer):
+        """First name alias in turn 2 should map to same PERSON_1 from turn 1."""
+        # Turn 1: Full name introduced
+        r1 = transformer.sanitize("My name is Arunima Sen.", session_id="s_alias", turn_number=1)
+        assert "Arunima" not in r1.sanitized_text
+        assert "PERSON_1" in r1.sanitized_text
+
+        # Turn 2: Only first name used
+        r2 = transformer.sanitize("Summarize this for Arunima please.", session_id="s_alias", turn_number=2)
+        assert "Arunima" not in r2.sanitized_text
+        assert "PERSON_1" in r2.sanitized_text
+
 
 # ── Session Isolation ────────────────────────────────────────
 
