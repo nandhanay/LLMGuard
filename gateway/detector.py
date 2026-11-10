@@ -25,7 +25,12 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Optional
 
-from presidio_analyzer import AnalyzerEngine, RecognizerResult
+from presidio_analyzer import (
+    AnalyzerEngine,
+    Pattern,
+    PatternRecognizer,
+    RecognizerResult,
+)
 
 
 # ── Detection Result ──────────────────────────────────────────
@@ -101,6 +106,63 @@ class PIIDetector:
         # Initialize the Presidio analyzer engine once.
         # This loads spaCy models internally — can take 1-2 seconds on first call.
         self._engine = AnalyzerEngine()
+        self._register_custom_recognizers()
+
+    def _register_custom_recognizers(self) -> None:
+        """Register domain-specific recognizers for Indian identifiers and titles."""
+        # 1. Indian PAN Card (Permanent Account Number)
+        # Format: 5 uppercase letters, 4 digits, 1 uppercase letter (e.g. AADPE7873B)
+        pan_pattern = Pattern(
+            name="in_pan_pattern",
+            regex=r"\b[A-Z]{5}[0-9]{4}[A-Z]\b",
+            score=0.85,
+        )
+        pan_recognizer = PatternRecognizer(
+            supported_entity="IN_PAN",
+            patterns=[pan_pattern],
+            context=["pan", "pan card", "tax", "permanent account number", "income tax", "clearance"],
+        )
+        self._engine.registry.add_recognizer(pan_recognizer)
+
+        # 2. Indian Aadhaar Card
+        # Format: 12 digits, often formatted as 4-4-4
+        aadhaar_pattern = Pattern(
+            name="in_aadhaar_pattern",
+            regex=r"\b[2-9]\d{3}[\s\-]?\d{4}[\s\-]?\d{4}\b",
+            score=0.85,
+        )
+        aadhaar_recognizer = PatternRecognizer(
+            supported_entity="IN_AADHAAR",
+            patterns=[aadhaar_pattern],
+            context=["aadhaar", "aadhar", "uidai", "uid", "identity"],
+        )
+        self._engine.registry.add_recognizer(aadhaar_recognizer)
+
+        # 3. Enhanced Indian Phone Number Recognizer (+91 prefix & 10-digit formats)
+        phone_pattern = Pattern(
+            name="in_phone_pattern",
+            regex=r"(?:\+91[\-\s]?)?[6-9]\d{4}[\-\s]?\d{5}\b|(?:\+91[\-\s]?)[6-9]\d{9}\b",
+            score=0.85,
+        )
+        in_phone_recognizer = PatternRecognizer(
+            supported_entity="PHONE_NUMBER",
+            patterns=[phone_pattern],
+            context=["phone", "mobile", "cell", "call", "contact", "coordinates"],
+        )
+        self._engine.registry.add_recognizer(in_phone_recognizer)
+
+        # 4. Formal Indian Honorific Person Names (e.g. Mr. Sharma, Dr. Babu)
+        honorific_pattern = Pattern(
+            name="in_honorific_name_pattern",
+            regex=r"\b(?:Mr\.|Ms\.|Mrs\.|Dr\.|Prof\.)\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?\b",
+            score=0.85,
+        )
+        honorific_recognizer = PatternRecognizer(
+            supported_entity="PERSON",
+            patterns=[honorific_pattern],
+            context=["name", "contact", "addressing", "behalf of", "advisor", "letter"],
+        )
+        self._engine.registry.add_recognizer(honorific_recognizer)
 
     def detect(self, text: str) -> list[DetectionResult]:
         """

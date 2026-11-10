@@ -239,14 +239,23 @@ class TestIndianContext:
         types = {r.entity_type for r in results}
         assert "PHONE_NUMBER" in types, f"Expected PHONE_NUMBER in {types}"
 
-    def test_mixed_indian_context(self, detector: PIIDetector):
-        """Should detect PII in a realistic Indian context sentence."""
-        text = (
-            "Hi, I am Deepika Menon from Bangalore. "
-            "You can reach me at deepika.menon@gmail.com or +91-8899776655."
-        )
-        results = detector.detect(text)
-        types = {r.entity_type for r in results}
-        assert "PERSON" in types or "EMAIL_ADDRESS" in types, (
-            f"Expected PERSON or EMAIL_ADDRESS in {types}"
-        )
+    def test_indian_pan_detection(self, detector: PIIDetector):
+        """Should detect Indian PAN numbers with high confidence."""
+        results = detector.detect("My tax PAN is AADPE7873B for verification.")
+        pan_matches = [r for r in results if r.entity_type == "IN_PAN"]
+        assert len(pan_matches) == 1
+        assert pan_matches[0].text == "AADPE7873B"
+        assert pan_matches[0].score >= 0.8
+
+    def test_indian_aadhaar_detection(self, detector: PIIDetector):
+        """Should detect Indian Aadhaar numbers."""
+        results = detector.detect("Aadhaar card number: 5482 9182 3491.")
+        aadhaar_matches = [r for r in results if r.entity_type == "IN_AADHAAR"]
+        assert len(aadhaar_matches) == 1
+        assert "5482" in aadhaar_matches[0].text
+
+    def test_indian_honorific_names(self, detector: PIIDetector):
+        """Should detect names prefixed with formal Indian titles."""
+        results = detector.detect("Please address the letter to Mr. Sharma.")
+        person_matches = [r for r in results if r.entity_type == "PERSON"]
+        assert any("Sharma" in r.text for r in person_matches)

@@ -30,6 +30,14 @@ entity_policies:
     action: PSEUDONYMIZE
     description: "Replace locations with indexed placeholders"
 
+  IN_PAN:
+    action: PSEUDONYMIZE
+    description: "Replace Indian PAN card numbers with indexed placeholders"
+
+  IN_AADHAAR:
+    action: REDACT
+    description: "Redact Indian Aadhaar numbers completely"
+
   DATE_TIME:
     action: ALLOW
     description: "Allow dates and times to pass through"
