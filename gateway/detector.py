@@ -164,6 +164,19 @@ class PIIDetector:
         )
         self._engine.registry.add_recognizer(honorific_recognizer)
 
+        # 5. Role/Context-introduced Person Names (e.g. "tenant listed in draft is Pahal Oak")
+        context_name_pattern = Pattern(
+            name="in_context_name_pattern",
+            regex=r"\b[A-Z][a-z]{1,15}\s+[A-Z][a-z]{1,15}\b",
+            score=0.65,
+        )
+        context_name_recognizer = PatternRecognizer(
+            supported_entity="PERSON",
+            patterns=[context_name_pattern],
+            context=["tenant", "applicant", "employee", "advisor", "draft", "student", "candidate", "client"],
+        )
+        self._engine.registry.add_recognizer(context_name_recognizer)
+
     def detect(self, text: str) -> list[DetectionResult]:
         """
         Detect PII entities in the given text.
@@ -214,7 +227,47 @@ class PIIDetector:
         # Sort by position first, then by descending score for overlaps
         detections.sort(key=lambda d: (d.start, -d.score))
 
-        return detections
+        # Merge adjacent entities of the same type (e.g. "Arunima" + "Sen" -> "Arunima Sen")
+        return self._merge_adjacent_entities(detections, text)
+
+    @staticmethod
+    def _merge_adjacent_entities(
+        detections: list[DetectionResult], text: str
+    ) -> list[DetectionResult]:
+        """
+        Merge adjacent entities of the same type separated only by whitespace.
+        For example: [PERSON: 'Arunima'] + [PERSON: 'Sen'] -> [PERSON: 'Arunima Sen'].
+        """
+        if len(detections) <= 1:
+            return detections
+
+        merged: list[DetectionResult] = []
+        i = 0
+        while i < len(detections):
+            current = detections[i]
+            # Check if next entity is adjacent and of the same type
+            while (
+                i + 1 < len(detections)
+                and detections[i + 1].entity_type == current.entity_type
+                and current.entity_type in ("PERSON", "LOCATION", "ORGANIZATION")
+                and detections[i + 1].start >= current.end
+                and text[current.end : detections[i + 1].start].strip() == ""
+                and (detections[i + 1].start - current.end) <= 2
+            ):
+                nxt = detections[i + 1]
+                new_start = current.start
+                new_end = nxt.end
+                current = DetectionResult(
+                    entity_type=current.entity_type,
+                    text=text[new_start:new_end],
+                    start=new_start,
+                    end=new_end,
+                    score=round(max(current.score, nxt.score), 4),
+                )
+                i += 1
+            merged.append(current)
+            i += 1
+        return merged
 
     def detect_summary(self, text: str) -> dict:
         """

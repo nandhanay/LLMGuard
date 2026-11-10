@@ -1,0 +1,2099 @@
+[
+  {
+    "conversation_id": "synth_en_in_001",
+    "scenario": "college_academic",
+    "dataset_source": "faker_en_in_controlled_generator",
+    "license": "CC-BY-4.0 / Research Use Only",
+    "provenance": {
+      "generated_at": "2026-11-10T03:30:11.462398+00:00",
+      "faker_locale": "en_IN",
+      "generator_version": "1.0.0",
+      "random_seed": 42
+    },
+    "ground_truth_profile": {
+      "first_name": "Isaac",
+      "last_name": "Bakshi",
+      "full_name": "Isaac Bakshi",
+      "formal_alias": "Mr. Bakshi",
+      "email": "isaac.bakshi@hotmail.com",
+      "phone": "+91-9813356886",
+      "city": "Bengaluru",
+      "institution": "IIT Madras",
+      "company": "Infosys",
+      "pan": "DBAPA9935A",
+      "age": "34",
+      "role": "Data Analyst"
+    },
+    "entities": [
+      {
+        "entity_id": "E_iit_madras",
+        "canonical_name": "IIT Madras",
+        "entity_type": "LOCATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "IIT Madras"
+        ],
+        "first_disclosed_turn": 1
+      },
+      {
+        "entity_id": "E_bengaluru",
+        "canonical_name": "Bengaluru",
+        "entity_type": "LOCATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Bengaluru"
+        ],
+        "first_disclosed_turn": 2
+      },
+      {
+        "entity_id": "E_data_analyst",
+        "canonical_name": "Data Analyst",
+        "entity_type": "OCCUPATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Data Analyst"
+        ],
+        "first_disclosed_turn": 2
+      },
+      {
+        "entity_id": "E_isaac_bakshi",
+        "canonical_name": "Isaac Bakshi",
+        "entity_type": "PERSON",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "Isaac Bakshi",
+          "Isaac"
+        ],
+        "first_disclosed_turn": 3
+      },
+      {
+        "entity_id": "E_isaac.bakshi@ho",
+        "canonical_name": "isaac.bakshi@hotmail.com",
+        "entity_type": "EMAIL_ADDRESS",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "isaac.bakshi@hotmail.com"
+        ],
+        "first_disclosed_turn": 4
+      },
+      {
+        "entity_id": "E_+91-9813356886",
+        "canonical_name": "+91-9813356886",
+        "entity_type": "PHONE_NUMBER",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "+91-9813356886"
+        ],
+        "first_disclosed_turn": 4
+      },
+      {
+        "entity_id": "E_isaac",
+        "canonical_name": "Isaac",
+        "entity_type": "PERSON",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "Isaac"
+        ],
+        "first_disclosed_turn": 5
+      }
+    ],
+    "turns": [
+      {
+        "turn_number": 1,
+        "user_prompt": "Hello! I am a student at IIT Madras preparing for my final semester elective selection.",
+        "disclosed_entity_ids": [
+          "E_iit_madras"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_iit_madras",
+            "entity_type": "LOCATION",
+            "text": "IIT Madras",
+            "start": 25,
+            "end": 35,
+            "identifier_category": "QUASI_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 2,
+        "user_prompt": "I am based in Bengaluru and specializing in Data Analyst. Can you recommend advanced privacy engineering electives?",
+        "disclosed_entity_ids": [
+          "E_bengaluru",
+          "E_data_analyst"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_bengaluru",
+            "entity_type": "LOCATION",
+            "text": "Bengaluru",
+            "start": 14,
+            "end": 23,
+            "identifier_category": "QUASI_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_data_analyst",
+            "entity_type": "OCCUPATION",
+            "text": "Data Analyst",
+            "start": 44,
+            "end": 56,
+            "identifier_category": "QUASI_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 3,
+        "user_prompt": "By the way, my name is Isaac Bakshi. My department advisor suggested I contact the lab coordinator.",
+        "disclosed_entity_ids": [
+          "E_isaac_bakshi"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_isaac_bakshi",
+            "entity_type": "PERSON",
+            "text": "Isaac Bakshi",
+            "start": 23,
+            "end": 35,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 4,
+        "user_prompt": "If needed, you can reach me directly at isaac.bakshi@hotmail.com or +91-9813356886.",
+        "disclosed_entity_ids": [
+          "E_isaac.bakshi@ho",
+          "E_+91-9813356886"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_isaac.bakshi@ho",
+            "entity_type": "EMAIL_ADDRESS",
+            "text": "isaac.bakshi@hotmail.com",
+            "start": 40,
+            "end": 64,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_+91-9813356886",
+            "entity_type": "PHONE_NUMBER",
+            "text": "+91-9813356886",
+            "start": 68,
+            "end": 82,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 5,
+        "user_prompt": "Please draft an email on behalf of Isaac to the departmental committee requesting approval.",
+        "disclosed_entity_ids": [
+          "E_isaac"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_isaac",
+            "entity_type": "PERSON",
+            "text": "Isaac",
+            "start": 35,
+            "end": 40,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "conversation_id": "synth_en_in_002",
+    "scenario": "hr_workplace",
+    "dataset_source": "faker_en_in_controlled_generator",
+    "license": "CC-BY-4.0 / Research Use Only",
+    "provenance": {
+      "generated_at": "2026-11-10T03:30:11.462528+00:00",
+      "faker_locale": "en_IN",
+      "generator_version": "1.0.0",
+      "random_seed": 42
+    },
+    "ground_truth_profile": {
+      "first_name": "Anvi",
+      "last_name": "Konda",
+      "full_name": "Anvi Konda",
+      "formal_alias": "Ms. Konda",
+      "email": "anvi.konda@gmail.com",
+      "phone": "+91-8890801586",
+      "city": "Hyderabad",
+      "institution": "IIM Bangalore",
+      "company": "Infosys",
+      "pan": "AADPE7873B",
+      "age": "31",
+      "role": "Project Lead"
+    },
+    "entities": [
+      {
+        "entity_id": "E_project_lead",
+        "canonical_name": "Project Lead",
+        "entity_type": "OCCUPATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Project Lead"
+        ],
+        "first_disclosed_turn": 1
+      },
+      {
+        "entity_id": "E_infosys",
+        "canonical_name": "Infosys",
+        "entity_type": "ORGANIZATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Infosys"
+        ],
+        "first_disclosed_turn": 1
+      },
+      {
+        "entity_id": "E_hyderabad",
+        "canonical_name": "Hyderabad",
+        "entity_type": "LOCATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Hyderabad"
+        ],
+        "first_disclosed_turn": 1
+      },
+      {
+        "entity_id": "E_anvi_konda",
+        "canonical_name": "Anvi Konda",
+        "entity_type": "PERSON",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "Anvi Konda",
+          "Ms. Konda"
+        ],
+        "first_disclosed_turn": 2
+      },
+      {
+        "entity_id": "E_anvi.konda@gmai",
+        "canonical_name": "anvi.konda@gmail.com",
+        "entity_type": "EMAIL_ADDRESS",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "anvi.konda@gmail.com"
+        ],
+        "first_disclosed_turn": 3
+      },
+      {
+        "entity_id": "E_+91-8890801586",
+        "canonical_name": "+91-8890801586",
+        "entity_type": "PHONE_NUMBER",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "+91-8890801586"
+        ],
+        "first_disclosed_turn": 3
+      },
+      {
+        "entity_id": "E_aadpe7873b",
+        "canonical_name": "AADPE7873B",
+        "entity_type": "IN_PAN",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "AADPE7873B"
+        ],
+        "first_disclosed_turn": 4
+      },
+      {
+        "entity_id": "E_ms._konda",
+        "canonical_name": "Ms. Konda",
+        "entity_type": "PERSON",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "Ms. Konda"
+        ],
+        "first_disclosed_turn": 5
+      }
+    ],
+    "turns": [
+      {
+        "turn_number": 1,
+        "user_prompt": "Hi, I am currently working as a Project Lead at Infosys in Hyderabad.",
+        "disclosed_entity_ids": [
+          "E_project_lead",
+          "E_infosys",
+          "E_hyderabad"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_project_lead",
+            "entity_type": "OCCUPATION",
+            "text": "Project Lead",
+            "start": 32,
+            "end": 44,
+            "identifier_category": "QUASI_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_infosys",
+            "entity_type": "ORGANIZATION",
+            "text": "Infosys",
+            "start": 48,
+            "end": 55,
+            "identifier_category": "QUASI_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_hyderabad",
+            "entity_type": "LOCATION",
+            "text": "Hyderabad",
+            "start": 59,
+            "end": 68,
+            "identifier_category": "QUASI_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 2,
+        "user_prompt": "My name is Anvi Konda. I am preparing an updated CV for an internal transfer.",
+        "disclosed_entity_ids": [
+          "E_anvi_konda"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_anvi_konda",
+            "entity_type": "PERSON",
+            "text": "Anvi Konda",
+            "start": 11,
+            "end": 21,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 3,
+        "user_prompt": "Here are my official contact coordinates: anvi.konda@gmail.com and mobile +91-8890801586.",
+        "disclosed_entity_ids": [
+          "E_anvi.konda@gmai",
+          "E_+91-8890801586"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_anvi.konda@gmai",
+            "entity_type": "EMAIL_ADDRESS",
+            "text": "anvi.konda@gmail.com",
+            "start": 42,
+            "end": 62,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_+91-8890801586",
+            "entity_type": "PHONE_NUMBER",
+            "text": "+91-8890801586",
+            "start": 74,
+            "end": 88,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 4,
+        "user_prompt": "HR asked me to provide my tax identifier for background clearance: PAN is AADPE7873B.",
+        "disclosed_entity_ids": [
+          "E_aadpe7873b"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_aadpe7873b",
+            "entity_type": "IN_PAN",
+            "text": "AADPE7873B",
+            "start": 74,
+            "end": 84,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 5,
+        "user_prompt": "Can you format a cover letter addressing me as Ms. Konda?",
+        "disclosed_entity_ids": [
+          "E_ms._konda"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_ms._konda",
+            "entity_type": "PERSON",
+            "text": "Ms. Konda",
+            "start": 47,
+            "end": 56,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "conversation_id": "synth_en_in_003",
+    "scenario": "finance_banking",
+    "dataset_source": "faker_en_in_controlled_generator",
+    "license": "CC-BY-4.0 / Research Use Only",
+    "provenance": {
+      "generated_at": "2026-11-10T03:30:11.462626+00:00",
+      "faker_locale": "en_IN",
+      "generator_version": "1.0.0",
+      "random_seed": 42
+    },
+    "ground_truth_profile": {
+      "first_name": "Liam",
+      "last_name": "Chaudry",
+      "full_name": "Liam Chaudry",
+      "formal_alias": "Ms. Chaudry",
+      "email": "liam.chaudry@hotmail.com",
+      "phone": "+91-9947295260",
+      "city": "Hyderabad",
+      "institution": "Anna University",
+      "company": "Wipro",
+      "pan": "AEBPA7224A",
+      "age": "23",
+      "role": "Project Lead"
+    },
+    "entities": [
+      {
+        "entity_id": "E_hyderabad",
+        "canonical_name": "Hyderabad",
+        "entity_type": "LOCATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Hyderabad"
+        ],
+        "first_disclosed_turn": 1
+      },
+      {
+        "entity_id": "E_liam_chaudry",
+        "canonical_name": "Liam Chaudry",
+        "entity_type": "PERSON",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "Liam Chaudry",
+          "Liam"
+        ],
+        "first_disclosed_turn": 2
+      },
+      {
+        "entity_id": "E_project_lead",
+        "canonical_name": "Project Lead",
+        "entity_type": "OCCUPATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Project Lead"
+        ],
+        "first_disclosed_turn": 2
+      },
+      {
+        "entity_id": "E_wipro",
+        "canonical_name": "Wipro",
+        "entity_type": "ORGANIZATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Wipro"
+        ],
+        "first_disclosed_turn": 2
+      },
+      {
+        "entity_id": "E_liam.chaudry@ho",
+        "canonical_name": "liam.chaudry@hotmail.com",
+        "entity_type": "EMAIL_ADDRESS",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "liam.chaudry@hotmail.com"
+        ],
+        "first_disclosed_turn": 3
+      },
+      {
+        "entity_id": "E_+91-9947295260",
+        "canonical_name": "+91-9947295260",
+        "entity_type": "PHONE_NUMBER",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "+91-9947295260"
+        ],
+        "first_disclosed_turn": 4
+      },
+      {
+        "entity_id": "E_aebpa7224a",
+        "canonical_name": "AEBPA7224A",
+        "entity_type": "IN_PAN",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "AEBPA7224A"
+        ],
+        "first_disclosed_turn": 4
+      },
+      {
+        "entity_id": "E_liam",
+        "canonical_name": "Liam",
+        "entity_type": "PERSON",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "Liam"
+        ],
+        "first_disclosed_turn": 5
+      }
+    ],
+    "turns": [
+      {
+        "turn_number": 1,
+        "user_prompt": "I want to understand the tax rebate limits under Section 87A for residents in Hyderabad.",
+        "disclosed_entity_ids": [
+          "E_hyderabad"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_hyderabad",
+            "entity_type": "LOCATION",
+            "text": "Hyderabad",
+            "start": 78,
+            "end": 87,
+            "identifier_category": "QUASI_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 2,
+        "user_prompt": "I am Liam Chaudry, employed as a Project Lead at Wipro.",
+        "disclosed_entity_ids": [
+          "E_liam_chaudry",
+          "E_project_lead",
+          "E_wipro"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_liam_chaudry",
+            "entity_type": "PERSON",
+            "text": "Liam Chaudry",
+            "start": 5,
+            "end": 17,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_project_lead",
+            "entity_type": "OCCUPATION",
+            "text": "Project Lead",
+            "start": 33,
+            "end": 45,
+            "identifier_category": "QUASI_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_wipro",
+            "entity_type": "ORGANIZATION",
+            "text": "Wipro",
+            "start": 49,
+            "end": 54,
+            "identifier_category": "QUASI_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 3,
+        "user_prompt": "My registered bank communication email is liam.chaudry@hotmail.com.",
+        "disclosed_entity_ids": [
+          "E_liam.chaudry@ho"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_liam.chaudry@ho",
+            "entity_type": "EMAIL_ADDRESS",
+            "text": "liam.chaudry@hotmail.com",
+            "start": 42,
+            "end": 66,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 4,
+        "user_prompt": "For the verification form, my phone is +91-9947295260 and PAN number is AEBPA7224A.",
+        "disclosed_entity_ids": [
+          "E_+91-9947295260",
+          "E_aebpa7224a"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_+91-9947295260",
+            "entity_type": "PHONE_NUMBER",
+            "text": "+91-9947295260",
+            "start": 39,
+            "end": 53,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_aebpa7224a",
+            "entity_type": "IN_PAN",
+            "text": "AEBPA7224A",
+            "start": 72,
+            "end": 82,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 5,
+        "user_prompt": "Summarize the deductions applicable for Liam in one bullet list.",
+        "disclosed_entity_ids": [
+          "E_liam"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_liam",
+            "entity_type": "PERSON",
+            "text": "Liam",
+            "start": 40,
+            "end": 44,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "conversation_id": "synth_en_in_004",
+    "scenario": "legal_administrative",
+    "dataset_source": "faker_en_in_controlled_generator",
+    "license": "CC-BY-4.0 / Research Use Only",
+    "provenance": {
+      "generated_at": "2026-11-10T03:30:11.462709+00:00",
+      "faker_locale": "en_IN",
+      "generator_version": "1.0.0",
+      "random_seed": 42
+    },
+    "ground_truth_profile": {
+      "first_name": "Gagan",
+      "last_name": "Sami",
+      "full_name": "Gagan Sami",
+      "formal_alias": "Ms. Sami",
+      "email": "gagan.sami@gmail.com",
+      "phone": "+91-8826753883",
+      "city": "Bengaluru",
+      "institution": "IIT Madras",
+      "company": "Tech Mahindra",
+      "pan": "EBCPE6925E",
+      "age": "35",
+      "role": "Research Scholar"
+    },
+    "entities": [
+      {
+        "entity_id": "E_bengaluru",
+        "canonical_name": "Bengaluru",
+        "entity_type": "LOCATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Bengaluru"
+        ],
+        "first_disclosed_turn": 1
+      },
+      {
+        "entity_id": "E_gagan_sami",
+        "canonical_name": "Gagan Sami",
+        "entity_type": "PERSON",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "Gagan Sami",
+          "Ms. Sami"
+        ],
+        "first_disclosed_turn": 2
+      },
+      {
+        "entity_id": "E_gagan.sami@gmai",
+        "canonical_name": "gagan.sami@gmail.com",
+        "entity_type": "EMAIL_ADDRESS",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "gagan.sami@gmail.com"
+        ],
+        "first_disclosed_turn": 3
+      },
+      {
+        "entity_id": "E_+91-8826753883",
+        "canonical_name": "+91-8826753883",
+        "entity_type": "PHONE_NUMBER",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "+91-8826753883"
+        ],
+        "first_disclosed_turn": 3
+      },
+      {
+        "entity_id": "E_ebcpe6925e",
+        "canonical_name": "EBCPE6925E",
+        "entity_type": "IN_PAN",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "EBCPE6925E"
+        ],
+        "first_disclosed_turn": 4
+      },
+      {
+        "entity_id": "E_ms._sami",
+        "canonical_name": "Ms. Sami",
+        "entity_type": "PERSON",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "Ms. Sami"
+        ],
+        "first_disclosed_turn": 5
+      }
+    ],
+    "turns": [
+      {
+        "turn_number": 1,
+        "user_prompt": "I need assistance reviewing standard clauses in a residential lease agreement for an apartment in Bengaluru.",
+        "disclosed_entity_ids": [
+          "E_bengaluru"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_bengaluru",
+            "entity_type": "LOCATION",
+            "text": "Bengaluru",
+            "start": 98,
+            "end": 107,
+            "identifier_category": "QUASI_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 2,
+        "user_prompt": "The tenant listed in the draft is Gagan Sami.",
+        "disclosed_entity_ids": [
+          "E_gagan_sami"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_gagan_sami",
+            "entity_type": "PERSON",
+            "text": "Gagan Sami",
+            "start": 34,
+            "end": 44,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 3,
+        "user_prompt": "Please include notice contact details: email gagan.sami@gmail.com and emergency phone +91-8826753883.",
+        "disclosed_entity_ids": [
+          "E_gagan.sami@gmai",
+          "E_+91-8826753883"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_gagan.sami@gmai",
+            "entity_type": "EMAIL_ADDRESS",
+            "text": "gagan.sami@gmail.com",
+            "start": 45,
+            "end": 65,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_+91-8826753883",
+            "entity_type": "PHONE_NUMBER",
+            "text": "+91-8826753883",
+            "start": 86,
+            "end": 100,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 4,
+        "user_prompt": "The landlord requested tenant identity verification using PAN EBCPE6925E.",
+        "disclosed_entity_ids": [
+          "E_ebcpe6925e"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_ebcpe6925e",
+            "entity_type": "IN_PAN",
+            "text": "EBCPE6925E",
+            "start": 62,
+            "end": 72,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 5,
+        "user_prompt": "Generate the final signature block for Ms. Sami.",
+        "disclosed_entity_ids": [
+          "E_ms._sami"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_ms._sami",
+            "entity_type": "PERSON",
+            "text": "Ms. Sami",
+            "start": 39,
+            "end": 47,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "conversation_id": "synth_en_in_005",
+    "scenario": "college_academic",
+    "dataset_source": "faker_en_in_controlled_generator",
+    "license": "CC-BY-4.0 / Research Use Only",
+    "provenance": {
+      "generated_at": "2026-11-10T03:30:11.462784+00:00",
+      "faker_locale": "en_IN",
+      "generator_version": "1.0.0",
+      "random_seed": 42
+    },
+    "ground_truth_profile": {
+      "first_name": "Ayushman",
+      "last_name": "Chander",
+      "full_name": "Ayushman Chander",
+      "formal_alias": "Ms. Chander",
+      "email": "ayushman.chander@gmail.com",
+      "phone": "+91-9841244663",
+      "city": "Delhi",
+      "institution": "IIT Bombay",
+      "company": "Tech Mahindra",
+      "pan": "EBCPC3664C",
+      "age": "25",
+      "role": "Data Analyst"
+    },
+    "entities": [
+      {
+        "entity_id": "E_iit_bombay",
+        "canonical_name": "IIT Bombay",
+        "entity_type": "LOCATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "IIT Bombay"
+        ],
+        "first_disclosed_turn": 1
+      },
+      {
+        "entity_id": "E_delhi",
+        "canonical_name": "Delhi",
+        "entity_type": "LOCATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Delhi"
+        ],
+        "first_disclosed_turn": 2
+      },
+      {
+        "entity_id": "E_data_analyst",
+        "canonical_name": "Data Analyst",
+        "entity_type": "OCCUPATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Data Analyst"
+        ],
+        "first_disclosed_turn": 2
+      },
+      {
+        "entity_id": "E_ayushman_chande",
+        "canonical_name": "Ayushman Chander",
+        "entity_type": "PERSON",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "Ayushman Chander",
+          "Ayushman"
+        ],
+        "first_disclosed_turn": 3
+      },
+      {
+        "entity_id": "E_ayushman.chande",
+        "canonical_name": "ayushman.chander@gmail.com",
+        "entity_type": "EMAIL_ADDRESS",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "ayushman.chander@gmail.com"
+        ],
+        "first_disclosed_turn": 4
+      },
+      {
+        "entity_id": "E_+91-9841244663",
+        "canonical_name": "+91-9841244663",
+        "entity_type": "PHONE_NUMBER",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "+91-9841244663"
+        ],
+        "first_disclosed_turn": 4
+      },
+      {
+        "entity_id": "E_ayushman",
+        "canonical_name": "Ayushman",
+        "entity_type": "PERSON",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "Ayushman"
+        ],
+        "first_disclosed_turn": 5
+      }
+    ],
+    "turns": [
+      {
+        "turn_number": 1,
+        "user_prompt": "Hello! I am a student at IIT Bombay preparing for my final semester elective selection.",
+        "disclosed_entity_ids": [
+          "E_iit_bombay"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_iit_bombay",
+            "entity_type": "LOCATION",
+            "text": "IIT Bombay",
+            "start": 25,
+            "end": 35,
+            "identifier_category": "QUASI_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 2,
+        "user_prompt": "I am based in Delhi and specializing in Data Analyst. Can you recommend advanced privacy engineering electives?",
+        "disclosed_entity_ids": [
+          "E_delhi",
+          "E_data_analyst"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_delhi",
+            "entity_type": "LOCATION",
+            "text": "Delhi",
+            "start": 14,
+            "end": 19,
+            "identifier_category": "QUASI_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_data_analyst",
+            "entity_type": "OCCUPATION",
+            "text": "Data Analyst",
+            "start": 40,
+            "end": 52,
+            "identifier_category": "QUASI_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 3,
+        "user_prompt": "By the way, my name is Ayushman Chander. My department advisor suggested I contact the lab coordinator.",
+        "disclosed_entity_ids": [
+          "E_ayushman_chande"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_ayushman_chande",
+            "entity_type": "PERSON",
+            "text": "Ayushman Chander",
+            "start": 23,
+            "end": 39,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 4,
+        "user_prompt": "If needed, you can reach me directly at ayushman.chander@gmail.com or +91-9841244663.",
+        "disclosed_entity_ids": [
+          "E_ayushman.chande",
+          "E_+91-9841244663"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_ayushman.chande",
+            "entity_type": "EMAIL_ADDRESS",
+            "text": "ayushman.chander@gmail.com",
+            "start": 40,
+            "end": 66,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_+91-9841244663",
+            "entity_type": "PHONE_NUMBER",
+            "text": "+91-9841244663",
+            "start": 70,
+            "end": 84,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 5,
+        "user_prompt": "Please draft an email on behalf of Ayushman to the departmental committee requesting approval.",
+        "disclosed_entity_ids": [
+          "E_ayushman"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_ayushman",
+            "entity_type": "PERSON",
+            "text": "Ayushman",
+            "start": 35,
+            "end": 43,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "conversation_id": "synth_en_in_006",
+    "scenario": "hr_workplace",
+    "dataset_source": "faker_en_in_controlled_generator",
+    "license": "CC-BY-4.0 / Research Use Only",
+    "provenance": {
+      "generated_at": "2026-11-10T03:30:11.462863+00:00",
+      "faker_locale": "en_IN",
+      "generator_version": "1.0.0",
+      "random_seed": 42
+    },
+    "ground_truth_profile": {
+      "first_name": "Viraj",
+      "last_name": "Tiwari",
+      "full_name": "Viraj Tiwari",
+      "formal_alias": "Mr. Tiwari",
+      "email": "viraj.tiwari@hotmail.com",
+      "phone": "+91-8842857966",
+      "city": "Kolkata",
+      "institution": "IIT Madras",
+      "company": "Tata Consultancy Services",
+      "pan": "ABEPE4598C",
+      "age": "23",
+      "role": "Research Scholar"
+    },
+    "entities": [
+      {
+        "entity_id": "E_research_schola",
+        "canonical_name": "Research Scholar",
+        "entity_type": "OCCUPATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Research Scholar"
+        ],
+        "first_disclosed_turn": 1
+      },
+      {
+        "entity_id": "E_tata_consultanc",
+        "canonical_name": "Tata Consultancy Services",
+        "entity_type": "ORGANIZATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Tata Consultancy Services"
+        ],
+        "first_disclosed_turn": 1
+      },
+      {
+        "entity_id": "E_kolkata",
+        "canonical_name": "Kolkata",
+        "entity_type": "LOCATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Kolkata"
+        ],
+        "first_disclosed_turn": 1
+      },
+      {
+        "entity_id": "E_viraj_tiwari",
+        "canonical_name": "Viraj Tiwari",
+        "entity_type": "PERSON",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "Viraj Tiwari",
+          "Mr. Tiwari"
+        ],
+        "first_disclosed_turn": 2
+      },
+      {
+        "entity_id": "E_viraj.tiwari@ho",
+        "canonical_name": "viraj.tiwari@hotmail.com",
+        "entity_type": "EMAIL_ADDRESS",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "viraj.tiwari@hotmail.com"
+        ],
+        "first_disclosed_turn": 3
+      },
+      {
+        "entity_id": "E_+91-8842857966",
+        "canonical_name": "+91-8842857966",
+        "entity_type": "PHONE_NUMBER",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "+91-8842857966"
+        ],
+        "first_disclosed_turn": 3
+      },
+      {
+        "entity_id": "E_abepe4598c",
+        "canonical_name": "ABEPE4598C",
+        "entity_type": "IN_PAN",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "ABEPE4598C"
+        ],
+        "first_disclosed_turn": 4
+      },
+      {
+        "entity_id": "E_mr._tiwari",
+        "canonical_name": "Mr. Tiwari",
+        "entity_type": "PERSON",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "Mr. Tiwari"
+        ],
+        "first_disclosed_turn": 5
+      }
+    ],
+    "turns": [
+      {
+        "turn_number": 1,
+        "user_prompt": "Hi, I am currently working as a Research Scholar at Tata Consultancy Services in Kolkata.",
+        "disclosed_entity_ids": [
+          "E_research_schola",
+          "E_tata_consultanc",
+          "E_kolkata"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_research_schola",
+            "entity_type": "OCCUPATION",
+            "text": "Research Scholar",
+            "start": 32,
+            "end": 48,
+            "identifier_category": "QUASI_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_tata_consultanc",
+            "entity_type": "ORGANIZATION",
+            "text": "Tata Consultancy Services",
+            "start": 52,
+            "end": 77,
+            "identifier_category": "QUASI_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_kolkata",
+            "entity_type": "LOCATION",
+            "text": "Kolkata",
+            "start": 81,
+            "end": 88,
+            "identifier_category": "QUASI_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 2,
+        "user_prompt": "My name is Viraj Tiwari. I am preparing an updated CV for an internal transfer.",
+        "disclosed_entity_ids": [
+          "E_viraj_tiwari"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_viraj_tiwari",
+            "entity_type": "PERSON",
+            "text": "Viraj Tiwari",
+            "start": 11,
+            "end": 23,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 3,
+        "user_prompt": "Here are my official contact coordinates: viraj.tiwari@hotmail.com and mobile +91-8842857966.",
+        "disclosed_entity_ids": [
+          "E_viraj.tiwari@ho",
+          "E_+91-8842857966"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_viraj.tiwari@ho",
+            "entity_type": "EMAIL_ADDRESS",
+            "text": "viraj.tiwari@hotmail.com",
+            "start": 42,
+            "end": 66,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_+91-8842857966",
+            "entity_type": "PHONE_NUMBER",
+            "text": "+91-8842857966",
+            "start": 78,
+            "end": 92,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 4,
+        "user_prompt": "HR asked me to provide my tax identifier for background clearance: PAN is ABEPE4598C.",
+        "disclosed_entity_ids": [
+          "E_abepe4598c"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_abepe4598c",
+            "entity_type": "IN_PAN",
+            "text": "ABEPE4598C",
+            "start": 74,
+            "end": 84,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 5,
+        "user_prompt": "Can you format a cover letter addressing me as Mr. Tiwari?",
+        "disclosed_entity_ids": [
+          "E_mr._tiwari"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_mr._tiwari",
+            "entity_type": "PERSON",
+            "text": "Mr. Tiwari",
+            "start": 47,
+            "end": 57,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "conversation_id": "synth_en_in_007",
+    "scenario": "finance_banking",
+    "dataset_source": "faker_en_in_controlled_generator",
+    "license": "CC-BY-4.0 / Research Use Only",
+    "provenance": {
+      "generated_at": "2026-11-10T03:30:11.462951+00:00",
+      "faker_locale": "en_IN",
+      "generator_version": "1.0.0",
+      "random_seed": 42
+    },
+    "ground_truth_profile": {
+      "first_name": "Avi",
+      "last_name": "Issac",
+      "full_name": "Avi Issac",
+      "formal_alias": "Ms. Issac",
+      "email": "avi.issac@hotmail.com",
+      "phone": "+91-9145935572",
+      "city": "Delhi",
+      "institution": "BITS Pilani",
+      "company": "Tata Consultancy Services",
+      "pan": "AECPC4483D",
+      "age": "37",
+      "role": "Data Analyst"
+    },
+    "entities": [
+      {
+        "entity_id": "E_delhi",
+        "canonical_name": "Delhi",
+        "entity_type": "LOCATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Delhi"
+        ],
+        "first_disclosed_turn": 1
+      },
+      {
+        "entity_id": "E_avi_issac",
+        "canonical_name": "Avi Issac",
+        "entity_type": "PERSON",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "Avi Issac",
+          "Avi"
+        ],
+        "first_disclosed_turn": 2
+      },
+      {
+        "entity_id": "E_data_analyst",
+        "canonical_name": "Data Analyst",
+        "entity_type": "OCCUPATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Data Analyst"
+        ],
+        "first_disclosed_turn": 2
+      },
+      {
+        "entity_id": "E_tata_consultanc",
+        "canonical_name": "Tata Consultancy Services",
+        "entity_type": "ORGANIZATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Tata Consultancy Services"
+        ],
+        "first_disclosed_turn": 2
+      },
+      {
+        "entity_id": "E_avi.issac@hotma",
+        "canonical_name": "avi.issac@hotmail.com",
+        "entity_type": "EMAIL_ADDRESS",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "avi.issac@hotmail.com"
+        ],
+        "first_disclosed_turn": 3
+      },
+      {
+        "entity_id": "E_+91-9145935572",
+        "canonical_name": "+91-9145935572",
+        "entity_type": "PHONE_NUMBER",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "+91-9145935572"
+        ],
+        "first_disclosed_turn": 4
+      },
+      {
+        "entity_id": "E_aecpc4483d",
+        "canonical_name": "AECPC4483D",
+        "entity_type": "IN_PAN",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "AECPC4483D"
+        ],
+        "first_disclosed_turn": 4
+      },
+      {
+        "entity_id": "E_avi",
+        "canonical_name": "Avi",
+        "entity_type": "PERSON",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "Avi"
+        ],
+        "first_disclosed_turn": 5
+      }
+    ],
+    "turns": [
+      {
+        "turn_number": 1,
+        "user_prompt": "I want to understand the tax rebate limits under Section 87A for residents in Delhi.",
+        "disclosed_entity_ids": [
+          "E_delhi"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_delhi",
+            "entity_type": "LOCATION",
+            "text": "Delhi",
+            "start": 78,
+            "end": 83,
+            "identifier_category": "QUASI_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 2,
+        "user_prompt": "I am Avi Issac, employed as a Data Analyst at Tata Consultancy Services.",
+        "disclosed_entity_ids": [
+          "E_avi_issac",
+          "E_data_analyst",
+          "E_tata_consultanc"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_avi_issac",
+            "entity_type": "PERSON",
+            "text": "Avi Issac",
+            "start": 5,
+            "end": 14,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_data_analyst",
+            "entity_type": "OCCUPATION",
+            "text": "Data Analyst",
+            "start": 30,
+            "end": 42,
+            "identifier_category": "QUASI_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_tata_consultanc",
+            "entity_type": "ORGANIZATION",
+            "text": "Tata Consultancy Services",
+            "start": 46,
+            "end": 71,
+            "identifier_category": "QUASI_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 3,
+        "user_prompt": "My registered bank communication email is avi.issac@hotmail.com.",
+        "disclosed_entity_ids": [
+          "E_avi.issac@hotma"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_avi.issac@hotma",
+            "entity_type": "EMAIL_ADDRESS",
+            "text": "avi.issac@hotmail.com",
+            "start": 42,
+            "end": 63,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 4,
+        "user_prompt": "For the verification form, my phone is +91-9145935572 and PAN number is AECPC4483D.",
+        "disclosed_entity_ids": [
+          "E_+91-9145935572",
+          "E_aecpc4483d"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_+91-9145935572",
+            "entity_type": "PHONE_NUMBER",
+            "text": "+91-9145935572",
+            "start": 39,
+            "end": 53,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_aecpc4483d",
+            "entity_type": "IN_PAN",
+            "text": "AECPC4483D",
+            "start": 72,
+            "end": 82,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 5,
+        "user_prompt": "Summarize the deductions applicable for Avi in one bullet list.",
+        "disclosed_entity_ids": [
+          "E_avi"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_avi",
+            "entity_type": "PERSON",
+            "text": "Avi",
+            "start": 40,
+            "end": 43,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "conversation_id": "synth_en_in_008",
+    "scenario": "legal_administrative",
+    "dataset_source": "faker_en_in_controlled_generator",
+    "license": "CC-BY-4.0 / Research Use Only",
+    "provenance": {
+      "generated_at": "2026-11-10T03:30:11.463030+00:00",
+      "faker_locale": "en_IN",
+      "generator_version": "1.0.0",
+      "random_seed": 42
+    },
+    "ground_truth_profile": {
+      "first_name": "Oni",
+      "last_name": "Kannan",
+      "full_name": "Oni Kannan",
+      "formal_alias": "Ms. Kannan",
+      "email": "oni.kannan@yahoo.com",
+      "phone": "+91-9785345555",
+      "city": "Chennai",
+      "institution": "Anna University",
+      "company": "Zoho Corporation",
+      "pan": "CDCPE7543C",
+      "age": "26",
+      "role": "Software Engineer"
+    },
+    "entities": [
+      {
+        "entity_id": "E_chennai",
+        "canonical_name": "Chennai",
+        "entity_type": "LOCATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Chennai"
+        ],
+        "first_disclosed_turn": 1
+      },
+      {
+        "entity_id": "E_oni_kannan",
+        "canonical_name": "Oni Kannan",
+        "entity_type": "PERSON",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "Oni Kannan",
+          "Ms. Kannan"
+        ],
+        "first_disclosed_turn": 2
+      },
+      {
+        "entity_id": "E_oni.kannan@yaho",
+        "canonical_name": "oni.kannan@yahoo.com",
+        "entity_type": "EMAIL_ADDRESS",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "oni.kannan@yahoo.com"
+        ],
+        "first_disclosed_turn": 3
+      },
+      {
+        "entity_id": "E_+91-9785345555",
+        "canonical_name": "+91-9785345555",
+        "entity_type": "PHONE_NUMBER",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "+91-9785345555"
+        ],
+        "first_disclosed_turn": 3
+      },
+      {
+        "entity_id": "E_cdcpe7543c",
+        "canonical_name": "CDCPE7543C",
+        "entity_type": "IN_PAN",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "CDCPE7543C"
+        ],
+        "first_disclosed_turn": 4
+      },
+      {
+        "entity_id": "E_ms._kannan",
+        "canonical_name": "Ms. Kannan",
+        "entity_type": "PERSON",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "Ms. Kannan"
+        ],
+        "first_disclosed_turn": 5
+      }
+    ],
+    "turns": [
+      {
+        "turn_number": 1,
+        "user_prompt": "I need assistance reviewing standard clauses in a residential lease agreement for an apartment in Chennai.",
+        "disclosed_entity_ids": [
+          "E_chennai"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_chennai",
+            "entity_type": "LOCATION",
+            "text": "Chennai",
+            "start": 98,
+            "end": 105,
+            "identifier_category": "QUASI_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 2,
+        "user_prompt": "The tenant listed in the draft is Oni Kannan.",
+        "disclosed_entity_ids": [
+          "E_oni_kannan"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_oni_kannan",
+            "entity_type": "PERSON",
+            "text": "Oni Kannan",
+            "start": 34,
+            "end": 44,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 3,
+        "user_prompt": "Please include notice contact details: email oni.kannan@yahoo.com and emergency phone +91-9785345555.",
+        "disclosed_entity_ids": [
+          "E_oni.kannan@yaho",
+          "E_+91-9785345555"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_oni.kannan@yaho",
+            "entity_type": "EMAIL_ADDRESS",
+            "text": "oni.kannan@yahoo.com",
+            "start": 45,
+            "end": 65,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_+91-9785345555",
+            "entity_type": "PHONE_NUMBER",
+            "text": "+91-9785345555",
+            "start": 86,
+            "end": 100,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 4,
+        "user_prompt": "The landlord requested tenant identity verification using PAN CDCPE7543C.",
+        "disclosed_entity_ids": [
+          "E_cdcpe7543c"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_cdcpe7543c",
+            "entity_type": "IN_PAN",
+            "text": "CDCPE7543C",
+            "start": 62,
+            "end": 72,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 5,
+        "user_prompt": "Generate the final signature block for Ms. Kannan.",
+        "disclosed_entity_ids": [
+          "E_ms._kannan"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_ms._kannan",
+            "entity_type": "PERSON",
+            "text": "Ms. Kannan",
+            "start": 39,
+            "end": 49,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "conversation_id": "synth_en_in_009",
+    "scenario": "college_academic",
+    "dataset_source": "faker_en_in_controlled_generator",
+    "license": "CC-BY-4.0 / Research Use Only",
+    "provenance": {
+      "generated_at": "2026-11-10T03:30:11.463101+00:00",
+      "faker_locale": "en_IN",
+      "generator_version": "1.0.0",
+      "random_seed": 42
+    },
+    "ground_truth_profile": {
+      "first_name": "Arunima",
+      "last_name": "Ahuja",
+      "full_name": "Arunima Ahuja",
+      "formal_alias": "Mr. Ahuja",
+      "email": "arunima.ahuja@gmail.com",
+      "phone": "+91-9830514014",
+      "city": "Mumbai",
+      "institution": "Anna University",
+      "company": "Wipro",
+      "pan": "DDCPA7304D",
+      "age": "21",
+      "role": "Software Engineer"
+    },
+    "entities": [
+      {
+        "entity_id": "E_anna_university",
+        "canonical_name": "Anna University",
+        "entity_type": "LOCATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Anna University"
+        ],
+        "first_disclosed_turn": 1
+      },
+      {
+        "entity_id": "E_mumbai",
+        "canonical_name": "Mumbai",
+        "entity_type": "LOCATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Mumbai"
+        ],
+        "first_disclosed_turn": 2
+      },
+      {
+        "entity_id": "E_software_engine",
+        "canonical_name": "Software Engineer",
+        "entity_type": "OCCUPATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Software Engineer"
+        ],
+        "first_disclosed_turn": 2
+      },
+      {
+        "entity_id": "E_arunima_ahuja",
+        "canonical_name": "Arunima Ahuja",
+        "entity_type": "PERSON",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "Arunima Ahuja",
+          "Arunima"
+        ],
+        "first_disclosed_turn": 3
+      },
+      {
+        "entity_id": "E_arunima.ahuja@g",
+        "canonical_name": "arunima.ahuja@gmail.com",
+        "entity_type": "EMAIL_ADDRESS",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "arunima.ahuja@gmail.com"
+        ],
+        "first_disclosed_turn": 4
+      },
+      {
+        "entity_id": "E_+91-9830514014",
+        "canonical_name": "+91-9830514014",
+        "entity_type": "PHONE_NUMBER",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "+91-9830514014"
+        ],
+        "first_disclosed_turn": 4
+      },
+      {
+        "entity_id": "E_arunima",
+        "canonical_name": "Arunima",
+        "entity_type": "PERSON",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "Arunima"
+        ],
+        "first_disclosed_turn": 5
+      }
+    ],
+    "turns": [
+      {
+        "turn_number": 1,
+        "user_prompt": "Hello! I am a student at Anna University preparing for my final semester elective selection.",
+        "disclosed_entity_ids": [
+          "E_anna_university"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_anna_university",
+            "entity_type": "LOCATION",
+            "text": "Anna University",
+            "start": 25,
+            "end": 40,
+            "identifier_category": "QUASI_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 2,
+        "user_prompt": "I am based in Mumbai and specializing in Software Engineer. Can you recommend advanced privacy engineering electives?",
+        "disclosed_entity_ids": [
+          "E_mumbai",
+          "E_software_engine"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_mumbai",
+            "entity_type": "LOCATION",
+            "text": "Mumbai",
+            "start": 14,
+            "end": 20,
+            "identifier_category": "QUASI_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_software_engine",
+            "entity_type": "OCCUPATION",
+            "text": "Software Engineer",
+            "start": 41,
+            "end": 58,
+            "identifier_category": "QUASI_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 3,
+        "user_prompt": "By the way, my name is Arunima Ahuja. My department advisor suggested I contact the lab coordinator.",
+        "disclosed_entity_ids": [
+          "E_arunima_ahuja"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_arunima_ahuja",
+            "entity_type": "PERSON",
+            "text": "Arunima Ahuja",
+            "start": 23,
+            "end": 36,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 4,
+        "user_prompt": "If needed, you can reach me directly at arunima.ahuja@gmail.com or +91-9830514014.",
+        "disclosed_entity_ids": [
+          "E_arunima.ahuja@g",
+          "E_+91-9830514014"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_arunima.ahuja@g",
+            "entity_type": "EMAIL_ADDRESS",
+            "text": "arunima.ahuja@gmail.com",
+            "start": 40,
+            "end": 63,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_+91-9830514014",
+            "entity_type": "PHONE_NUMBER",
+            "text": "+91-9830514014",
+            "start": 67,
+            "end": 81,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 5,
+        "user_prompt": "Please draft an email on behalf of Arunima to the departmental committee requesting approval.",
+        "disclosed_entity_ids": [
+          "E_arunima"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_arunima",
+            "entity_type": "PERSON",
+            "text": "Arunima",
+            "start": 35,
+            "end": 42,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "conversation_id": "synth_en_in_010",
+    "scenario": "hr_workplace",
+    "dataset_source": "faker_en_in_controlled_generator",
+    "license": "CC-BY-4.0 / Research Use Only",
+    "provenance": {
+      "generated_at": "2026-11-10T03:30:11.463181+00:00",
+      "faker_locale": "en_IN",
+      "generator_version": "1.0.0",
+      "random_seed": 42
+    },
+    "ground_truth_profile": {
+      "first_name": "Pahal",
+      "last_name": "Oak",
+      "full_name": "Pahal Oak",
+      "formal_alias": "Mr. Oak",
+      "email": "pahal.oak@yahoo.com",
+      "phone": "+91-8845812670",
+      "city": "Delhi",
+      "institution": "IIT Bombay",
+      "company": "Freshworks",
+      "pan": "DBBPB8433A",
+      "age": "32",
+      "role": "Software Engineer"
+    },
+    "entities": [
+      {
+        "entity_id": "E_software_engine",
+        "canonical_name": "Software Engineer",
+        "entity_type": "OCCUPATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Software Engineer"
+        ],
+        "first_disclosed_turn": 1
+      },
+      {
+        "entity_id": "E_freshworks",
+        "canonical_name": "Freshworks",
+        "entity_type": "ORGANIZATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Freshworks"
+        ],
+        "first_disclosed_turn": 1
+      },
+      {
+        "entity_id": "E_delhi",
+        "canonical_name": "Delhi",
+        "entity_type": "LOCATION",
+        "identifier_category": "QUASI_IDENTIFIER",
+        "aliases": [
+          "Delhi"
+        ],
+        "first_disclosed_turn": 1
+      },
+      {
+        "entity_id": "E_pahal_oak",
+        "canonical_name": "Pahal Oak",
+        "entity_type": "PERSON",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "Pahal Oak",
+          "Mr. Oak"
+        ],
+        "first_disclosed_turn": 2
+      },
+      {
+        "entity_id": "E_pahal.oak@yahoo",
+        "canonical_name": "pahal.oak@yahoo.com",
+        "entity_type": "EMAIL_ADDRESS",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "pahal.oak@yahoo.com"
+        ],
+        "first_disclosed_turn": 3
+      },
+      {
+        "entity_id": "E_+91-8845812670",
+        "canonical_name": "+91-8845812670",
+        "entity_type": "PHONE_NUMBER",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "+91-8845812670"
+        ],
+        "first_disclosed_turn": 3
+      },
+      {
+        "entity_id": "E_dbbpb8433a",
+        "canonical_name": "DBBPB8433A",
+        "entity_type": "IN_PAN",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "DBBPB8433A"
+        ],
+        "first_disclosed_turn": 4
+      },
+      {
+        "entity_id": "E_mr._oak",
+        "canonical_name": "Mr. Oak",
+        "entity_type": "PERSON",
+        "identifier_category": "DIRECT_IDENTIFIER",
+        "aliases": [
+          "Mr. Oak"
+        ],
+        "first_disclosed_turn": 5
+      }
+    ],
+    "turns": [
+      {
+        "turn_number": 1,
+        "user_prompt": "Hi, I am currently working as a Software Engineer at Freshworks in Delhi.",
+        "disclosed_entity_ids": [
+          "E_software_engine",
+          "E_freshworks",
+          "E_delhi"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_software_engine",
+            "entity_type": "OCCUPATION",
+            "text": "Software Engineer",
+            "start": 32,
+            "end": 49,
+            "identifier_category": "QUASI_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_freshworks",
+            "entity_type": "ORGANIZATION",
+            "text": "Freshworks",
+            "start": 53,
+            "end": 63,
+            "identifier_category": "QUASI_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_delhi",
+            "entity_type": "LOCATION",
+            "text": "Delhi",
+            "start": 67,
+            "end": 72,
+            "identifier_category": "QUASI_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 2,
+        "user_prompt": "My name is Pahal Oak. I am preparing an updated CV for an internal transfer.",
+        "disclosed_entity_ids": [
+          "E_pahal_oak"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_pahal_oak",
+            "entity_type": "PERSON",
+            "text": "Pahal Oak",
+            "start": 11,
+            "end": 20,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 3,
+        "user_prompt": "Here are my official contact coordinates: pahal.oak@yahoo.com and mobile +91-8845812670.",
+        "disclosed_entity_ids": [
+          "E_pahal.oak@yahoo",
+          "E_+91-8845812670"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_pahal.oak@yahoo",
+            "entity_type": "EMAIL_ADDRESS",
+            "text": "pahal.oak@yahoo.com",
+            "start": 42,
+            "end": 61,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          },
+          {
+            "entity_id": "E_+91-8845812670",
+            "entity_type": "PHONE_NUMBER",
+            "text": "+91-8845812670",
+            "start": 73,
+            "end": 87,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 4,
+        "user_prompt": "HR asked me to provide my tax identifier for background clearance: PAN is DBBPB8433A.",
+        "disclosed_entity_ids": [
+          "E_dbbpb8433a"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_dbbpb8433a",
+            "entity_type": "IN_PAN",
+            "text": "DBBPB8433A",
+            "start": 74,
+            "end": 84,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      },
+      {
+        "turn_number": 5,
+        "user_prompt": "Can you format a cover letter addressing me as Mr. Oak?",
+        "disclosed_entity_ids": [
+          "E_mr._oak"
+        ],
+        "annotations": [
+          {
+            "entity_id": "E_mr._oak",
+            "entity_type": "PERSON",
+            "text": "Mr. Oak",
+            "start": 47,
+            "end": 54,
+            "identifier_category": "DIRECT_IDENTIFIER"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -4,20 +4,20 @@
   "total_turns": 50,
   "detection": {
     "exact_match": {
-      "tp": 54,
-      "fp": 18,
-      "fn": 19,
-      "precision": 0.75,
-      "recall": 0.7397,
-      "f1": 0.7448
+      "tp": 49,
+      "fp": 121,
+      "fn": 24,
+      "precision": 0.2882,
+      "recall": 0.6712,
+      "f1": 0.4033
     },
     "overlap_match": {
-      "tp": 54,
-      "fp": 18,
-      "fn": 19,
-      "precision": 0.75,
-      "recall": 0.7397,
-      "f1": 0.7448
+      "tp": 57,
+      "fp": 113,
+      "fn": 16,
+      "precision": 0.3353,
+      "recall": 0.7808,
+      "f1": 0.4691
     },
     "per_entity_type": {
       "LOCATION": {
@@ -29,7 +29,7 @@
         "f1": 1.0
       },
       "PERSON": {
-        "tp": 17,
+        "tp": 12,
         "fp": 0,
         "fn": 0,
         "precision": 1.0,
@@ -64,28 +64,9 @@
   },
   "leakage": {
     "total_entities": 47,
-    "leaked_entities": 3,
-    "leakage_rate": 0.0638,
-    "leaked_instances": [
-      {
-        "conversation_id": "synth_en_in_007",
-        "turn": 5,
-        "entity_type": "PERSON",
-        "leaked_value": "Avi"
-      },
-      {
-        "conversation_id": "synth_en_in_009",
-        "turn": 5,
-        "entity_type": "PERSON",
-        "leaked_value": "Arunima"
-      },
-      {
-        "conversation_id": "synth_en_in_010",
-        "turn": 2,
-        "entity_type": "PERSON",
-        "leaked_value": "Pahal Oak"
-      }
-    ]
+    "leaked_entities": 0,
+    "leakage_rate": 0.0,
+    "leaked_instances": []
   },
   "consistency": {
     "total_re_references": 0,
@@ -94,9 +75,9 @@
   },
   "latency": {
     "count": 50,
-    "mean_ms": 12.92,
-    "p50_ms": 9.56,
-    "p95_ms": 12.99,
-    "p99_ms": 138.61
+    "mean_ms": 14.42,
+    "p50_ms": 8.9,
+    "p95_ms": 44.2,
+    "p99_ms": 153.18
   }
 }
