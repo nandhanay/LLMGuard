@@ -29,10 +29,16 @@ from __future__ import annotations
 import argparse
 import json
 import random
+import sys
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Optional
+
+# Ensure project root is in sys.path
+project_root = Path(__file__).resolve().parent.parent
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
 
 from faker import Faker
 
@@ -106,7 +112,7 @@ class SyntheticDatasetGenerator:
         self.seed = seed
         self.fake = Faker("en_IN")
         if seed is not None:
-            Faker.seed(seed)
+            self.fake.seed_instance(seed)
             random.seed(seed)
 
     def _generate_indian_profile(self) -> dict[str, str]:
@@ -461,6 +467,9 @@ class SyntheticDatasetGenerator:
 
     def generate_dataset(self, count: int = 10) -> list[dict[str, Any]]:
         """Generate a complete batch of synthetic conversations."""
+        if self.seed is not None:
+            self.fake.seed_instance(self.seed)
+            random.seed(self.seed)
         return [self.generate_conversation(i).to_dict() for i in range(count)]
 
 

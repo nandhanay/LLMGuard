@@ -36,6 +36,7 @@ from typing import Optional
 from gateway.detector import PIIDetector, DetectionResult
 from gateway.vault import PIIVault
 from gateway.resolver import AliasResolver
+from gateway.policy import PolicyEngine, PolicyAction
 
 
 # ── Sanitization Result ──────────────────────────────────────
@@ -99,15 +100,15 @@ class TextTransformer:
         self,
         detector: PIIDetector,
         vault: PIIVault,
-        allowed_entities: Optional[set[str]] = None,
+        policy: Optional[PolicyEngine] = None,
         resolver: Optional[AliasResolver] = None,
+        allowed_entities: Optional[set[str]] = None,
     ):
         self._detector = detector
         self._vault = vault
-        self._allowed_entities = (
-            allowed_entities if allowed_entities is not None else {"DATE_TIME"}
-        )
+        self._policy = policy or PolicyEngine("policies/default.yaml")
         self._resolver = resolver if resolver is not None else AliasResolver(vault)
+        self._allowed_entities = allowed_entities
 
     def sanitize(
         self,
@@ -152,10 +153,14 @@ class TextTransformer:
                 existing_detections=detections,
             )
 
-        # Filter out entities that policy specifies to ALLOW (e.g. DATE_TIME)
-        active_detections = [
-            d for d in detections if d.entity_type not in self._allowed_entities
-        ]
+        # Filter out entities that policy specifies to ALLOW
+        active_detections = []
+        for d in detections:
+            if self._allowed_entities and d.entity_type in self._allowed_entities:
+                continue
+            action = self._policy.get_action(d.entity_type)
+            if action != PolicyAction.ALLOW:
+                active_detections.append(d)
 
         if not active_detections:
             return SanitizationResult(
@@ -283,7 +288,38 @@ class TextTransformer:
         replacements: list[ReplacementInfo] = []
 
         for det in detections:
-            # Check if this exact value already has a placeholder in this session
+            action = self._policy.get_action(det.entity_type)
+
+            # Action: REDACT (non-restorable one-way masking, no vault storage)
+            if action == PolicyAction.REDACT:
+                replacements.append(
+                    ReplacementInfo(
+                        entity_type=det.entity_type,
+                        placeholder=f"[REDACTED_{det.entity_type}]",
+                        start=det.start,
+                        end=det.end,
+                        score=det.score,
+                        was_existing=False,
+                    )
+                )
+                continue
+
+            # Action: GENERALIZE (broader k-anonymity bucket, no vault storage)
+            if action == PolicyAction.GENERALIZE:
+                gen_text = self._policy.generalize_text(det.entity_type, det.text)
+                replacements.append(
+                    ReplacementInfo(
+                        entity_type=det.entity_type,
+                        placeholder=gen_text,
+                        start=det.start,
+                        end=det.end,
+                        score=det.score,
+                        was_existing=False,
+                    )
+                )
+                continue
+
+            # Action: PSEUDONYMIZE (indexed placeholders + vault mapping)
             existing = self._vault.get_placeholder(session_id, det.text)
             if not existing:
                 # Also check if it matches a known session alias

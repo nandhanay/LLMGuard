@@ -35,6 +35,7 @@ from gateway.vault import PIIVault
 from gateway.transformer import TextTransformer
 from gateway.inspector import ResponseInspector
 from gateway.audit import AuditLogger
+from gateway.policy import PolicyEngine, PolicyAction
 
 # ── Logging (never logs PII) ─────────────────────────────────
 
@@ -100,10 +101,13 @@ async def lifespan(app: FastAPI):
     logger.info("Initializing Privacy Gateway...")
 
     # Initialize components
+    app.state.policy = PolicyEngine("policies/default.yaml")
     app.state.detector = PIIDetector(score_threshold=SCORE_THRESHOLD)
     app.state.vault = PIIVault(str(DB_PATH))
     app.state.transformer = TextTransformer(
-        app.state.detector, app.state.vault
+        detector=app.state.detector,
+        vault=app.state.vault,
+        policy=app.state.policy,
     )
     app.state.inspector = ResponseInspector(
         app.state.detector, app.state.vault
@@ -159,9 +163,31 @@ async def chat(request: ChatRequest):
     session_id = request.session_id
     raw_message = request.message
 
-    # ── Step 1+2: Detect & Sanitize ───────────────────────────
+    # ── Step 1: Detect PII & Policy Evaluation ─────────────────
     turn_number = len(_session_histories.get(session_id, [])) // 2 + 1
 
+    detector: PIIDetector = app.state.detector
+    policy: PolicyEngine = getattr(app.state, "policy", None) or PolicyEngine("policies/default.yaml")
+
+    initial_detections = detector.detect(raw_message)
+    decision = policy.evaluate(initial_detections)
+
+    if decision.is_blocked:
+        logger.warning("session=%s turn=%d BLOCKED: %s", session_id, turn_number, decision.block_reason)
+        audit_logger = getattr(app.state, "audit_logger", None)
+        if audit_logger:
+            audit_logger.log_event(
+                event_type="request_blocked",
+                session_id=session_id,
+                data={
+                    "turn": turn_number,
+                    "entities_found": len(initial_detections),
+                    "is_safe": False,
+                },
+            )
+        raise HTTPException(status_code=403, detail=decision.block_reason)
+
+    # ── Step 2: Sanitize Message ──────────────────────────────
     sanitization = transformer.sanitize(
         text=raw_message,
         session_id=session_id,

@@ -1,55 +1,59 @@
-# LLMGuard Default Privacy Policy
-# =================================
-# Maps entity types to privacy actions.
-# Actions: ALLOW, PSEUDONYMIZE, GENERALIZE, REDACT, BLOCK
-#
-# The walking skeleton (v1) uses PSEUDONYMIZE for all detected entities.
-# This file will be extended with fine-grained rules in later phases.
+# LLMGuard Privacy Policy Configuration
+# ========================================
+# Supported Actions:
+#   ALLOW        — Pass through verbatim without modification
+#   PSEUDONYMIZE — Replace with indexed placeholder and track in vault
+#   GENERALIZE   — Transform into broader k-anonymity category
+#   REDACT       — Permanently mask with non-restorable marker
+#   BLOCK        — Halt request immediately with 403 Forbidden
 
 version: "1.0"
-description: "Default privacy policy — pseudonymize all detected PII"
+description: "Default enterprise privacy policy"
 
-# Global confidence threshold for PII detection
+# Global confidence threshold for Presidio detection
 detection_threshold: 0.7
 
-# Per-entity-type actions
+# Request volume safety limit
+max_entities_per_turn: 15
+
+# Per-Entity Type Policies
 entity_policies:
   PERSON:
     action: PSEUDONYMIZE
-    description: "Replace names with indexed placeholders"
+    description: "Replace names with indexed placeholders (PERSON_N)"
 
   EMAIL_ADDRESS:
     action: PSEUDONYMIZE
-    description: "Replace email addresses with indexed placeholders"
+    description: "Replace emails with indexed placeholders (EMAIL_ADDRESS_N)"
 
   PHONE_NUMBER:
     action: PSEUDONYMIZE
-    description: "Replace phone numbers with indexed placeholders"
+    description: "Replace phone numbers with indexed placeholders (PHONE_NUMBER_N)"
 
   LOCATION:
     action: PSEUDONYMIZE
-    description: "Replace locations with indexed placeholders"
+    description: "Replace locations with indexed placeholders (LOCATION_N)"
 
   IN_PAN:
     action: PSEUDONYMIZE
-    description: "Replace Indian PAN card numbers with indexed placeholders"
+    description: "Replace Indian PAN cards with indexed placeholders (IN_PAN_N)"
 
   IN_AADHAAR:
     action: REDACT
-    description: "Redact Indian Aadhaar numbers completely"
+    description: "Irreversibly redact Aadhaar card numbers ([REDACTED_AADHAAR])"
+
+  CREDIT_CARD:
+    action: BLOCK
+    description: "Hard block requests containing payment card numbers"
+
+  US_SSN:
+    action: BLOCK
+    description: "Hard block requests containing Social Security Numbers"
 
   DATE_TIME:
     action: ALLOW
-    description: "Allow dates and times to pass through"
+    description: "Allow dates and timestamps to pass through"
 
-  # Catch-all for any other Presidio-detected entity type
   DEFAULT:
     action: PSEUDONYMIZE
-    description: "Pseudonymize any unspecified entity type"
-
-# Request-level blocking rules (future)
-# block_rules:
-#   - condition: "entity_count > 10"
-#     action: BLOCK
-#     message: "Too many PII entities detected. Request blocked."
-
+    description: "Pseudonymize any unspecified sensitive entity type"

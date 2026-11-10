@@ -22,11 +22,13 @@ Usage:
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from typing import Optional
 
 from presidio_analyzer import (
     AnalyzerEngine,
+    EntityRecognizer,
     Pattern,
     PatternRecognizer,
     RecognizerResult,
@@ -65,7 +67,6 @@ DEFAULT_ENTITIES: list[str] = [
     "IBAN_CODE",
     "IP_ADDRESS",
     "URL",
-    "NRP",
     "MEDICAL_LICENSE",
     "US_SSN",
     "US_BANK_NUMBER",
@@ -75,6 +76,50 @@ DEFAULT_ENTITIES: list[str] = [
     "IN_PAN",
     "IN_AADHAAR",
 ]
+
+
+# ── Custom Recognizer for Role/Introductory Names ─────────────
+
+class IntroductoryNameRecognizer(EntityRecognizer):
+    """
+    Recognizes person names introduced by formal role or introduction context,
+    such as 'tenant listed in the draft is <Name>', 'my name is <Name>', etc.
+    Ensures high-precision extraction by matching only the name span, not the introductory prefix.
+    """
+
+    def __init__(self):
+        super().__init__(
+            supported_entities=["PERSON"],
+            name="IntroductoryNameRecognizer",
+            supported_language="en",
+        )
+
+    def load(self) -> None:
+        """No model weights needed."""
+        pass
+
+    def analyze(
+        self, text: str, entities: list[str], nlp_artifacts=None
+    ) -> list[RecognizerResult]:
+        results: list[RecognizerResult] = []
+        if "PERSON" not in entities:
+            return results
+
+        pattern = re.compile(
+            r"\b(?:tenant(?:\s+listed)?\s+in\s+(?:the\s+)?draft\s+is|tenant\s+is|my\s+name\s+is|name\s+is)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\b",
+            re.IGNORECASE,
+        )
+        for match in pattern.finditer(text):
+            start, end = match.span(1)
+            results.append(
+                RecognizerResult(
+                    entity_type="PERSON",
+                    start=start,
+                    end=end,
+                    score=0.85,
+                )
+            )
+        return results
 
 
 # ── PII Detector ─────────────────────────────────────────────
@@ -164,18 +209,9 @@ class PIIDetector:
         )
         self._engine.registry.add_recognizer(honorific_recognizer)
 
-        # 5. Role/Context-introduced Person Names (e.g. "tenant listed in draft is Pahal Oak")
-        context_name_pattern = Pattern(
-            name="in_context_name_pattern",
-            regex=r"\b[A-Z][a-z]{1,15}\s+[A-Z][a-z]{1,15}\b",
-            score=0.65,
-        )
-        context_name_recognizer = PatternRecognizer(
-            supported_entity="PERSON",
-            patterns=[context_name_pattern],
-            context=["tenant", "applicant", "employee", "advisor", "draft", "student", "candidate", "client"],
-        )
-        self._engine.registry.add_recognizer(context_name_recognizer)
+        # 5. Role/Context-introduced Person Names (e.g. "The tenant listed in the draft is Pahal Oak")
+        intro_name_recognizer = IntroductoryNameRecognizer()
+        self._engine.registry.add_recognizer(intro_name_recognizer)
 
     def detect(self, text: str) -> list[DetectionResult]:
         """
@@ -255,6 +291,10 @@ class PIIDetector:
                 and (detections[i + 1].start - current.end) <= 2
             ):
                 nxt = detections[i + 1]
+                # For PERSON entities, ensure both tokens are capitalized
+                if current.entity_type == "PERSON":
+                    if not (current.text and current.text[0].isupper() and nxt.text and nxt.text[0].isupper()):
+                        break
                 new_start = current.start
                 new_end = nxt.end
                 current = DetectionResult(

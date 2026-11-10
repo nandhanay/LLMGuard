@@ -20,6 +20,7 @@ from gateway.vault import PIIVault
 from gateway.transformer import TextTransformer
 from gateway.inspector import ResponseInspector
 from gateway.audit import AuditLogger
+from gateway.policy import PolicyEngine
 
 
 # ── Fixtures ──────────────────────────────────────────────────
@@ -29,10 +30,12 @@ def setup_app_state():
     """Configure app state with in-memory vault and test client."""
     detector = PIIDetector(score_threshold=0.4)
     vault = PIIVault(":memory:")
-    transformer = TextTransformer(detector, vault)
+    policy = PolicyEngine("policies/default.yaml")
+    transformer = TextTransformer(detector, vault, policy=policy)
     inspector = ResponseInspector(detector, vault)
     audit_logger = AuditLogger(":memory:")
 
+    app.state.policy = policy
     app.state.detector = detector
     app.state.vault = vault
     app.state.transformer = transformer
@@ -201,6 +204,15 @@ class TestErrorHandling:
         )
         assert response.status_code == 503
         assert "Cannot connect to Ollama" in response.json()["detail"]
+
+    def test_chat_blocked_on_credit_card(self, client: TestClient):
+        """Requests containing payment cards must be blocked by policy with HTTP 403."""
+        response = client.post(
+            "/chat",
+            json={"session_id": "s_block", "message": "Please charge card 4111-1111-1111-1111 now."},
+        )
+        assert response.status_code == 403
+        assert "Request blocked by privacy policy" in response.json()["detail"]
 
 
 # ── Session Deletion ─────────────────────────────────────────
