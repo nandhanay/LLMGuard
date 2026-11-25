@@ -20,6 +20,7 @@ Never sends raw/unsanitized prompts to the LLM.
 
 from __future__ import annotations
 
+import os
 import time
 import logging
 from contextlib import asynccontextmanager
@@ -28,6 +29,7 @@ from typing import Optional
 
 import httpx
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from gateway.detector import PIIDetector
@@ -53,6 +55,11 @@ OLLAMA_MODEL = "llama3.2:3b"
 DB_PATH = Path("privacy_vault.db")
 SCORE_THRESHOLD = 0.7
 OLLAMA_TIMEOUT = 120.0  # seconds — LLM can be slow on CPU
+
+
+def is_mock_llm_enabled() -> bool:
+    """Return True when local mock-LLM mode is enabled via env var."""
+    return os.getenv("LLMGUARD_MOCK_LLM", "").strip().lower() in ("1", "true", "yes")
 
 # ── Conversation History (sanitized only) ─────────────────────
 # In-memory store of sanitized messages per session.
@@ -141,6 +148,19 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # ── POST /chat ────────────────────────────────────────────────
 
@@ -216,38 +236,44 @@ async def chat(request: ChatRequest):
     if len(history) > MAX_HISTORY_TURNS:
         history[:] = history[-MAX_HISTORY_TURNS:]
 
-    # ── Step 4: Send to Ollama ────────────────────────────────
-    ollama_payload = {
-        "model": OLLAMA_MODEL,
-        "messages": list(history),  # Only sanitized messages
-        "stream": False,
-    }
+    # ── Step 4: Send to Ollama (or mock LLM in local dev mode) ──
+    if is_mock_llm_enabled():
+        llm_reply = (
+            f"[Mock LLM] I received your sanitized prompt: \"{sanitized_message}\". "
+            "Everything sensitive was kept private in the gateway."
+        )
+    else:
+        ollama_payload = {
+            "model": OLLAMA_MODEL,
+            "messages": list(history),  # Only sanitized messages
+            "stream": False,
+        }
 
-    try:
-        response = await http_client.post(
-            "/api/chat",
-            json=ollama_payload,
-        )
-        response.raise_for_status()
-        ollama_data = response.json()
-    except httpx.ConnectError:
-        raise HTTPException(
-            status_code=503,
-            detail="Cannot connect to Ollama. Is it running at "
-                   f"{OLLAMA_BASE_URL}?",
-        )
-    except httpx.TimeoutException:
-        raise HTTPException(
-            status_code=504,
-            detail=f"Ollama did not respond within {OLLAMA_TIMEOUT}s.",
-        )
-    except httpx.HTTPStatusError as e:
-        raise HTTPException(
-            status_code=502,
-            detail=f"Ollama returned error: {e.response.status_code}",
-        )
+        try:
+            response = await http_client.post(
+                "/api/chat",
+                json=ollama_payload,
+            )
+            response.raise_for_status()
+            ollama_data = response.json()
+        except httpx.ConnectError:
+            raise HTTPException(
+                status_code=503,
+                detail="Cannot connect to Ollama. Is it running at "
+                       f"{OLLAMA_BASE_URL}?",
+            )
+        except httpx.TimeoutException:
+            raise HTTPException(
+                status_code=504,
+                detail=f"Ollama did not respond within {OLLAMA_TIMEOUT}s.",
+            )
+        except httpx.HTTPStatusError as e:
+            raise HTTPException(
+                status_code=502,
+                detail=f"Ollama returned error: {e.response.status_code}",
+            )
 
-    llm_reply = ollama_data.get("message", {}).get("content", "")
+        llm_reply = ollama_data.get("message", {}).get("content", "")
 
     # Store sanitized assistant response in history
     history.append({"role": "assistant", "content": llm_reply})
@@ -304,6 +330,15 @@ async def chat(request: ChatRequest):
 @app.get("/health", response_model=HealthResponse)
 async def health():
     """Check the status of all dependencies."""
+    if is_mock_llm_enabled():
+        return HealthResponse(
+            status="ok",
+            ollama_reachable=True,
+            ollama_model=f"{OLLAMA_MODEL} (mock)",
+            vault_initialized=True,
+            detector_ready=True,
+        )
+
     http_client: httpx.AsyncClient = app.state.http_client
 
     # Check Ollama
